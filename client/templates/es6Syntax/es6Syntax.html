@@ -1,0 +1,208 @@
+<template name="es6List">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">基本语法</h3>
+  </div>
+  <div class="panel-body">
+  	<ul>
+  		<li><h4>用`import` 关键字导入系统文件或者自定义文件</h4><pre>import { Template } from 'meteor/templating';
+import { Person } from '../../helpers/person.js';</pre></li>
+		<li><h4>自定义变量导出关键字 `export`</h4><pre>var pi = 3.1415926;
+export {pi};</pre></li>
+		<li><h4>页面变量占位符 ，使用'{'表示</h4><pre>var name = "sam";
+"I am {{name}}".</pre></li>
+
+  	</ul>
+  </div>
+</div>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        	`=>`用法
+        </a>
+      </h4>
+    </div>
+    {{> arrowsAndLexical}}
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        	类定义
+        </a>
+      </h4>
+    </div>
+    {{>classesTemp}}
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        	模板字符串
+        </a>
+      </h4>
+    </div>
+   	{{>templateString}}
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFourth">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFourth" aria-expanded="false" aria-controls="collapseFourth">
+        	解构
+        </a>
+      </h4>
+    </div>
+   	{{>destructingTemp}}
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFifth">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFifth" aria-expanded="false" aria-controls="collapseFifth">
+       		函数式迭代
+        </a>
+      </h4>
+    </div>
+   	{{>iteratorsTemp}}
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSixth">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSixth" aria-expanded="false" aria-controls="collapseSixth">
+        Map、Set
+        </a>
+      </h4>
+    </div>
+   	{{>mapandsetTemp}}
+  </div>
+
+</div>
+</template>
+
+<template name="arrowsAndLexical">
+	<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+       	<ol>
+       		<li>表达式 =><br><pre>var bob = {
+  _name: "Bob",
+  _friends: ["123","456"],
+  printFriends() {
+    this._friends.forEach(f =>
+      console.log(this._name + " knows " + f));
+  }
+};
+bob.printFriends();</pre><button id="arrowBtn1" class='btn btn-primary'>运行</button><p class='mt-10'></p></li>
+		<li>函数定义 => <pre>var test = () => {
+	alert('456');
+};
+test();</pre><button id="arrowBtn2" class="btn btn-primary"> 运行</button> </li>
+		<li>函数默认值<pre>function f(x, y=12) {
+  // y is 12 if not passed (or passed as undefined)
+  return x + y;
+}
+f(3);</pre><button class="btn btn-primary" id="arrowBtn3">运行</button><p></p></li>
+		<li>函数定义参数是数组<pre>function f(x, ...y) {
+  // y is an Array
+  return x * y.length;
+}
+f(3, "hello", true);</pre><button class="btn btn-primary" id="arrowBtn4">运行</button></li>
+		<li>遍历参数函数调用<pre>function f(x, y, z) {
+  return x + y + z;
+}
+// Pass each elem of array as argument
+f(...[1,2,3]);</pre><button class="btn btn-primary" id="arrowBtn5">运行</button></li>
+       	</ol>
+      </div>
+    </div>
+</template>
+
+<template name="classesTemp">
+	<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+       <pre>class Person {
+	constructor(name){
+		this.name = name;
+	}
+
+	printName() {
+		console.log("hello , i am "+this.name);
+	}
+}
+var person = new Person('sam');
+person.printName();
+</pre>
+<button id='classesTempBtn' class="btn btn-primary">运行</button>
+<p class="mt-10"></p>
+      </div>
+    </div>
+</template>
+
+<template name="templateString">
+	 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+       	<ol>
+       		<li>基本的模板字符串<pre>`This is a pretty little template string.`</pre></li>
+       		<li>变量绑定的字符串<pre>var name = "Bob", time = "today";
+`Hello ${name}, how are you ${time}?`</pre><button id="templateStringBtn1" class="btn btn-primary">运行</button><p class="mt-10"></p></li>
+			<li>保留引号的字符串<pre>String.raw`In ES5 "\n" is a line-feed.`</pre><button class="btn btn-primary" id="templateStringBtn2">运行</button><p class="mt-10"></p></li>
+       	</ol>
+      </div>
+    </div>
+</template>
+
+<template name="destructingTemp">
+	<div id="collapseFourth" class="panel-collapse collapse" role = "tabpanel" aria-labelledby="headingFourth">
+      <div class="panel-body">
+     	<pre>var [a,,b]=[1,2,3];</pre>
+     	<button class="btn btn-primary" id="destructingBtn1">a===1</button>
+     	<button class="btn btn-primary" id="destructingBtn2">a===2</button>
+     	<button class="btn btn-primary" id="destructingBtn3">b===3</button>
+
+      </div>
+    </div>
+</template>
+
+<template name="iteratorsTemp">
+	<div id="collapseFifth" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFifth">
+      <div class="panel-body">
+      	<pre>let fibonacci = {
+  [Symbol.iterator]() {
+    let pre = 0, cur = 1;
+    return {
+      next() {
+        [pre, cur] = [cur, pre + cur];
+        return { done: false, value: cur }
+      }
+    }
+  }
+}
+for (var n of fibonacci) {
+  // truncate the sequence at 100
+  if (n > 100)
+    break;
+  console.log(n);
+}</pre>
+<button class="btn btn-primary" id="iteratorBtn">运行</button>
+<p></p>
+      </div>
+    </div>
+</template>
+
+<template name="mapandsetTemp">
+	<div id="collapseSixth" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSixth">
+      <div class="panel-body">
+		<ol>
+			<li>Map<pre>var m = new Map();
+m.set("hello", 42);
+m.set(s, 34);
+m.get(s);</pre><button class="btn btn-primary" id="maptempBtn">运行</button><p class="mt-10"></p></li>
+		<li>Set <pre>var s = new Set();
+s.add("hello").add("goodbye").add("hello");
+s.size;
+s.has("hello");</pre><button class="btn btn-primary" id="settempBtn">运行</button><p></p></li>
+		</ol>
+      </div>
+    </div>
+</template>
