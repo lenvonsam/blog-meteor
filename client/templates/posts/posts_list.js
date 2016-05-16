@@ -17,6 +17,20 @@ var postsData = [
   }
 ];
 
+// Template.postsList.qrCode = function(){
+//   return qrScanner.message();
+// };
+
+if(Meteor.isClient) {
+  qrScanner.on('scan',(err,message)=>{
+    if(message) {
+      alert(message);
+    } else {
+      alert(err);
+    }
+  });
+}
+
 Template.postsList.helpers({
-  posts: ()=>{ return Posts.find();}
+  posts: ()=>{ return Posts.find({},{sort:{submitted:-1}});}
 });

@@ -262,6 +262,7 @@ body
 
     pointer-events: none;
 }
+
 .alert
 {
     float: right;
@@ -274,4 +275,6 @@ body
        -moz-animation: fadeOut 2700ms ease-in 0s 1 forwards;
             animation: fadeOut 2700ms ease-in 0s 1 forwards;
     pointer-events: auto;
+    animation: fadeOut 2700ms ease-in 0s 1 forwards;
 }
+
